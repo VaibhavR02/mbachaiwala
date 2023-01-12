@@ -12,13 +12,14 @@ import data from './Data/data.json';
 import Footer from './Components/Footer';
 import Section from './Components/Section';
 import Misc from './Components/Misc';
+import Loader from './Components/Loader';
 import './Styles/App.scss';
 import './Styles/intro.scss';
 import './Styles/section.scss';
 import './Styles/footer.scss';
 import './Styles/misc.scss';
 import './Styles/mediaquery.scss';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const yellow = '#fff100',
   pink = '#ed1e79',
@@ -54,9 +55,13 @@ function App() {
       cursor.classList.remove('cursorHoverMini');
     }
   };
-
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     window.addEventListener('mousemove', dotCursor);
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+
     return () => {
       window.addEventListener('mousemove', dotCursor);
     };
@@ -64,6 +69,7 @@ function App() {
 
   return (
     <>
+      {loading && <Loader />}
       <IntroVideo />
 
       <Section
